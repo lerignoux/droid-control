@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
@@ -52,6 +54,21 @@ public class MainActivity extends AppCompatActivity {
         });
         File ssh_dir = getFilesDir();
         savePrivateKey(ssh_dir);
+        addListenerOnRatingBar();
+    }
+
+    public void addListenerOnRatingBar() {
+
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+
+        //if rating value is changed,
+        //display the current rating value in the result (textview) automatically
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                String script = "bash control/rating.sh " + String.valueOf(rating);
+                scriptExec(script);
+            }
+        });
     }
 
     @Override
@@ -93,38 +110,38 @@ public class MainActivity extends AppCompatActivity {
         // Handle user click
         String script;
         switch (view.getId()) {
-            case R.id.start:
-                script = "bash start";
+            case R.id.power:
+                script = "bash control/power.sh";
                 break;
             case R.id.play:
-                script = "bash play";
+                script = "bash control/playpause.sh";
                 break;
             case R.id.stop:
-                script = "bash stop";
+                script = "bash control/stop.sh";
                 break;
             case R.id.next:
-                script = "bash next";
+                script = "bash control/next.sh";
                 break;
             case R.id.ratingBar:
-                script = "bash rank";
+                script = "bash control/rating.sh";
                 break;
             case R.id.custom0:
-                script = "bash custom0";
+                script = "bash control/custom_0.sh";
                 break;
             case R.id.custom1:
-                script = "bash custom1";
+                script = "bash control/v_up.sh";
                 break;
             case R.id.custom2:
-                script = "bash custom2";
+                script = "bash control/v_down.sh";
                 break;
             case R.id.custom3:
-                script = "bash custom3";
+                script = "bash control/custom_3.sh";
                 break;
             case R.id.custom4:
-                script = "bash custom4";
+                script = "bash control/custom_4.sh";
                 break;
             case R.id.custom5:
-                script = "bash custom5";
+                script = "bash control/custom_5.sh";
                 break;
             default:
                 script = "";
