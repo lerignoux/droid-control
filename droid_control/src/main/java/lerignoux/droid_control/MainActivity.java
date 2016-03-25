@@ -105,35 +105,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.next:
                 script = "bash next";
                 break;
-            case R.id.rank0:
-                script = "bash rank 0";
-                break;
-            case R.id.rank1:
-                script = "bash rank 1";
-                break;
-            case R.id.rank2:
-                script = "bash rank 2";
-                break;
-            case R.id.rank3:
-                script = "bash rank 3";
-                break;
-            case R.id.rank4:
-                script = "bash rank 4";
-                break;
-            case R.id.rank5:
-                script = "bash rank 5";
-                break;
-            case R.id.rank6:
-                script = "bash rank 6";
-                break;
-            case R.id.rank7:
-                script = "bash rank 7";
-                break;
-            case R.id.rank8:
-                script = "bash rank 8";
-                break;
-            case R.id.rank9:
-                script = "bash rank 9";
+            case R.id.ratingBar:
+                script = "bash rank";
                 break;
             case R.id.custom0:
                 script = "bash custom0";

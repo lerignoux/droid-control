@@ -68,88 +68,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <RadioButton
+            <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rank0"
-                android:checked="false"
-                android:layout_gravity="center"
-                android:onClick="onButtonClick" />
+                android:id="@+id/ratingBar" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank1"
-                android:checked="false"
-                android:layout_gravity="center"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank2"
-                android:checked="false"
-                android:layout_gravity="center"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank3"
-                android:checked="false"
-                android:layout_gravity="center"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank4"
-                android:checked="false"
-                android:layout_gravity="center"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank5"
-                android:checked="false"
-                android:layout_gravity="center"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank6"
-                android:checked="false"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank7"
-                android:checked="false"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank8"
-                android:checked="false"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank9"
-                android:checked="false"
-                android:onClick="onButtonClick" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank10"
-                android:checked="false"
-                android:onClick="onButtonClick" />
         </LinearLayout>
 
         <Button
