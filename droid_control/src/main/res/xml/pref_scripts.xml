@@ -1,0 +1,116 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="power"
+        android:title="Power"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/power.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="play"
+        android:title="Play"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/play.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="stop"
+        android:title="Stop"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/stop.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="next"
+        android:title="Next"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/next.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="rating"
+        android:title="Rating"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/rating.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="custom_0"
+        android:title="Custom 0"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/custom_0.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="custom_1"
+        android:title="Custom 1"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/custom_1.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="custom_2"
+        android:title="Custom 2"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/custom_2.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="custom_3"
+        android:title="Custom 3"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/custom_3.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="custom_4"
+        android:title="Custom 4"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/custom_4.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+    <EditTextPreference
+        android:key="custom_5"
+        android:title="Custom 5"
+        android:defaultValue="bash ~/Projects/droid_control/scripts/custom_5.sh"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="false"
+        android:maxLines="10" />
+
+
+</PreferenceScreen>
