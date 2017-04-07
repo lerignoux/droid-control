@@ -109,39 +109,40 @@ public class MainActivity extends AppCompatActivity {
     public void startScript(View view) {
         // Handle user click
         String script;
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         switch (view.getId()) {
             case R.id.power:
-                script = "bash control/power.sh";
+                script = sharedPref.getString("cmd_power", "");
                 break;
             case R.id.play:
-                script = "bash control/playpause.sh";
+                script = sharedPref.getString("cmd_play_pause", "");
                 break;
             case R.id.stop:
-                script = "bash control/stop.sh";
+                script = sharedPref.getString("cmd_stop", "");
                 break;
             case R.id.next:
-                script = "bash control/next.sh";
+                script = sharedPref.getString("cmd_next", "");
                 break;
             case R.id.ratingBar:
-                script = "bash control/rating.sh";
+                script = sharedPref.getString("cmd_rating", "");
                 break;
             case R.id.custom0:
-                script = "bash control/custom_0.sh";
+                script = sharedPref.getString("script_0", "");
                 break;
             case R.id.custom1:
-                script = "bash control/v_up.sh";
+                script = sharedPref.getString("script_1", "");
                 break;
             case R.id.custom2:
-                script = "bash control/v_down.sh";
+                script = sharedPref.getString("script_2", "");
                 break;
             case R.id.custom3:
-                script = "bash control/custom_3.sh";
+                script = sharedPref.getString("script_3", "");
                 break;
             case R.id.custom4:
-                script = "bash control/custom_4.sh";
+                script = sharedPref.getString("script_4", "");
                 break;
             case R.id.custom5:
-                script = "bash control/custom_5.sh";
+                script = sharedPref.getString("script_5", "");
                 break;
             default:
                 script = "";
