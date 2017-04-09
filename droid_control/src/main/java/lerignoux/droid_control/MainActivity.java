@@ -115,7 +115,10 @@ public class MainActivity extends AppCompatActivity {
                 script = sharedPref.getString("cmd_power", "");
                 break;
             case R.id.play:
-                script = sharedPref.getString("cmd_play_pause", "");
+                script = sharedPref.getString("cmd_play", "");
+                break;
+            case R.id.pause:
+                script = sharedPref.getString("cmd_pause", "");
                 break;
             case R.id.stop:
                 script = sharedPref.getString("cmd_stop", "");

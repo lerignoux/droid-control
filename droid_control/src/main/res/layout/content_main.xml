@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_main" tools:context="lerignoux.droid_control.MainActivity"
     android:background="#000000">
 
-    <TextView android:text="What shall I do ?" android:layout_width="wrap_content"
+    <TextView android:text="Droid control ?" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:textColor="#ffffff" />
@@ -62,6 +62,19 @@
                 android:layout_height="60dp"
                 android:layout_margin="0dp"
                 android:padding="0dp"
+                android:text="play"
+                android:id="@+id/pause"
+                android:layout_gravity="center_horizontal"
+                android:onClick="startScript"
+                android:src="@drawable/pause"
+                android:scaleType="fitCenter"
+                android:background="#000000" />
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="0dp"
+                android:padding="0dp"
                 android:text="stop"
                 android:id="@+id/stop"
                 android:layout_gravity="center_horizontal"
@@ -82,6 +95,7 @@
                 android:src="@drawable/next"
                 android:scaleType="fitCenter"
                 android:background="#000000" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -89,6 +103,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:text="next"
+                android:id="@+id/volume_down"
+                android:nestedScrollingEnabled="false"
+                android:onClick="volumeDown"
+                android:src="@drawable/volume_down"
+                android:scaleType="fitCenter"
+                android:background="#000000" />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -105,6 +132,18 @@
                 android:progressBackgroundTint="#ffd900"
                 android:foregroundTint="#ffd900" />
 
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:text="next"
+                android:id="@+id/volume_up"
+                android:nestedScrollingEnabled="false"
+                android:onClick="volumeUp"
+                android:src="@drawable/volume_up"
+                android:scaleType="fitCenter"
+                android:background="#000000" />
         </LinearLayout>
 
         <Button
@@ -118,6 +157,7 @@
             android:background="#111111"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
+            android:src="@drawable/script_1"
             android:padding="10dp"
             android:singleLine="false"
             android:textColor="#999999" />
@@ -133,6 +173,7 @@
             android:background="#111111"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
+            android:src="@drawable/script_2"
             android:padding="10dp"
             android:singleLine="false"
             android:textColor="#999999" />
@@ -148,6 +189,7 @@
             android:background="#111111"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
+            android:src="@drawable/script_3"
             android:padding="10dp"
             android:singleLine="false"
             android:textColor="#999999" />
@@ -163,6 +205,7 @@
             android:background="#111111"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
+            android:src="@drawable/script_4"
             android:padding="10dp"
             android:singleLine="false"
             android:textColor="#999999" />
@@ -178,6 +221,7 @@
             android:background="#111111"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
+            android:src="@drawable/script_5"
             android:padding="10dp"
             android:singleLine="false"
             android:textColor="#999999" />
@@ -193,6 +237,7 @@
             android:background="#111111"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
+            android:src="@drawable/script_6"
             android:padding="10dp"
             android:singleLine="false"
             android:textColor="#999999" />
