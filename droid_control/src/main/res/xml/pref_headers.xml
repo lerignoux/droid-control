@@ -10,4 +10,8 @@
         android:title="@string/pref_header_scripts"
         android:icon="@drawable/settings_scripts" />
 
+    <header android:fragment="lerignoux.droid_control.SettingsActivity$VideoPreferenceFragment"
+        android:title="@string/pref_header_scripts"
+        android:icon="@drawable/settings_video" />
+
 </preference-headers>

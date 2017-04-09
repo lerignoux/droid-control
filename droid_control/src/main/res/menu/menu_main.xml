@@ -3,4 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context="lerignoux.droid_control.MainActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never"/>
+    <item android:id="@+id/video_control" android:title="Video"
+    android:orderInCategory="100" app:showAsAction="never"/>
 </menu>

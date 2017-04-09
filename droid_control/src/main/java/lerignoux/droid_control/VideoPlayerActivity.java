@@ -12,9 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RatingBar;
 
 import com.jcraft.jsch.Channel;
@@ -32,28 +32,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import lerignoux.droid_control.R;
-
-public class MainActivity extends AppCompatActivity {
+public class VideoPlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_video_player);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Nothing linked yet", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         File ssh_dir = getFilesDir();
         savePrivateKey(ssh_dir);
-        addListenerOnRatingBar();
     }
 
     @Override
@@ -77,23 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.dispatchKeyEvent(event);
         }
     }
-    public void addListenerOnRatingBar() {
-
-        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-
-        //if rating value is changed,
-        //display the current rating value in the result (textview) automatically
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                rating = rating * 2 / 10;
-                String base = sharedPref.getString("cmd_rating", "quodlibet --set-rating=");
-                Log.i("rating", String.valueOf(rating));
-                String script = base + String.valueOf(rating);
-                scriptExec(script);
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,13 +84,6 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.video_control) {
-            Intent intent = new Intent(this, VideoPlayerActivity.class);
             startActivity(intent);
             return true;
         }
@@ -142,44 +107,26 @@ public class MainActivity extends AppCompatActivity {
         String script;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         switch (view.getId()) {
-            case R.id.power:
-                script = sharedPref.getString("cmd_power", "");
-                break;
             case R.id.play:
-                script = sharedPref.getString("cmd_play", "");
+                script = sharedPref.getString("cmd_video_play", "");
                 break;
             case R.id.pause:
-                script = sharedPref.getString("cmd_pause", "");
+                script = sharedPref.getString("cmd_video_pause", "");
                 break;
             case R.id.stop:
-                script = sharedPref.getString("cmd_stop", "");
+                script = sharedPref.getString("cmd_video_stop", "");
                 break;
             case R.id.next:
-                script = sharedPref.getString("cmd_next", "");
+                script = sharedPref.getString("cmd_video_next", "");
                 break;
-            case R.id.ratingBar:
-                script = sharedPref.getString("cmd_rating", "");
+            case R.id.fullscreen:
+                script = sharedPref.getString("cmd_video_fullscreen", "");
                 break;
             case R.id.volumeDown:
-                script = sharedPref.getString("cmd_volume_down", "");
+                script = sharedPref.getString("cmd_video_volume_down", "");
                 break;
             case R.id.volumeUp:
-                script = sharedPref.getString("cmd_volume_up", "");
-                break;
-            case R.id.custom0:
-                script = sharedPref.getString("script_0", "");
-                break;
-            case R.id.custom1:
-                script = sharedPref.getString("script_1", "");
-                break;
-            case R.id.custom2:
-                script = sharedPref.getString("script_2", "");
-                break;
-            case R.id.custom3:
-                script = sharedPref.getString("script_3", "");
-                break;
-            case R.id.custom4:
-                script = sharedPref.getString("script_4", "");
+                script = sharedPref.getString("cmd_video_volume_up", "");
                 break;
             default:
                 script = "";

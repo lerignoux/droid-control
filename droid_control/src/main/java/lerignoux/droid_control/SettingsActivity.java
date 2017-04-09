@@ -131,7 +131,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-                || ScriptsPreferenceFragment.class.getName().equals(fragmentName);
+                || ScriptsPreferenceFragment.class.getName().equals(fragmentName)
+                || VideoPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -202,6 +203,41 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("script_5"));
             bindPreferenceSummaryToValue(findPreference("script_6"));
             bindPreferenceSummaryToValue(findPreference("script_7"));
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * This fragment shows notification preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class VideoPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_video);
+            setHasOptionsMenu(true);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            bindPreferenceSummaryToValue(findPreference("cmd_video_play"));
+            bindPreferenceSummaryToValue(findPreference("cmd_video_pause"));
+            bindPreferenceSummaryToValue(findPreference("cmd_video_next"));
+            bindPreferenceSummaryToValue(findPreference("cmd_video_fullscreen"));
+            bindPreferenceSummaryToValue(findPreference("cmd_video_volume_up"));
+            bindPreferenceSummaryToValue(findPreference("cmd_video_volume_down"));
         }
 
         @Override

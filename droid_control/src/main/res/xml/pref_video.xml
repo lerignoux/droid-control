@@ -1,0 +1,89 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="cmd_video_play"
+        android:title="Play"
+        android:defaultValue="echo 'play' | nc.openbsd localhost 1234"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="cmd_video_pause"
+        android:title="Pause"
+        android:defaultValue="echo 'pause' | nc.openbsd localhost 1234"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="cmd_video_stop"
+        android:title="Stop"
+        android:defaultValue="echo 'stop' | nc.openbsd localhost 1234"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="cmd_video_next"
+        android:title="Next"
+        android:defaultValue="echo 'next' | nc.openbsd localhost 1234"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="cmd_video_fullscreen"
+        android:title="Fullscreen"
+        android:defaultValue="echo 'fullscreen' | nc.openbsd localhost 1234"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="cmd_video_volume_down"
+        android:title="Volume down"
+            android:defaultValue="echo 'volume up' | nc.openbsd localhost 1234"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="cmd_video_volume_up"
+        android:title="Volume up"
+        android:defaultValue="echo 'volume down' | nc.openbsd localhost 1234"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+
+</PreferenceScreen>
