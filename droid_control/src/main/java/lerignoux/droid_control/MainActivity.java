@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,6 +56,27 @@ public class MainActivity extends AppCompatActivity {
         addListenerOnRatingBar();
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        int action = event.getAction();
+        int keyCode = event.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if (action == KeyEvent.ACTION_DOWN) {
+                    // Increase volume: amixer -q -D pulse sset Master 10%+
+                    scriptExec("amixer -q -D pulse sset Master 10%+&");
+                }
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if (action == KeyEvent.ACTION_DOWN) {
+                    // Increase volume: amixer -q -D pulse sset Master 10%-
+                    scriptExec("amixer -q -D pulse sset Master 10%-");
+                }
+                return true;
+            default:
+                return super.dispatchKeyEvent(event);
+        }
+    }
     public void addListenerOnRatingBar() {
 
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
