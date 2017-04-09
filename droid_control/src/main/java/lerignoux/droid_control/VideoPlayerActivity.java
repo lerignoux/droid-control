@@ -82,8 +82,22 @@ public class VideoPlayerActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.main_control) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.audio_control) {
+            Intent intent = new Intent(this, AudioPlayerActivity.class);
             startActivity(intent);
             return true;
         }

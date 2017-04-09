@@ -132,6 +132,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || ScriptsPreferenceFragment.class.getName().equals(fragmentName)
+                || AudioPreferenceFragment.class.getName().equals(fragmentName)
                 || VideoPreferenceFragment.class.getName().equals(fragmentName);
     }
 
@@ -189,12 +190,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("cmd_power"));
-            bindPreferenceSummaryToValue(findPreference("cmd_play"));
-            bindPreferenceSummaryToValue(findPreference("cmd_pause"));
-            bindPreferenceSummaryToValue(findPreference("cmd_next"));
-            bindPreferenceSummaryToValue(findPreference("cmd_volume_up"));
-            bindPreferenceSummaryToValue(findPreference("cmd_volume_down"));
-            bindPreferenceSummaryToValue(findPreference("cmd_rating"));
             bindPreferenceSummaryToValue(findPreference("script_0"));
             bindPreferenceSummaryToValue(findPreference("script_1"));
             bindPreferenceSummaryToValue(findPreference("script_2"));
@@ -212,6 +207,42 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
             }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * This fragment shows notification preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class AudioPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_audio);
+            setHasOptionsMenu(true);
+
+            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
+            // to their values. When their values change, their summaries are
+            // updated to reflect the new value, per the Android Design
+            // guidelines.
+            bindPreferenceSummaryToValue(findPreference("cmd_audio_play"));
+            bindPreferenceSummaryToValue(findPreference("cmd_audio_pause"));
+            bindPreferenceSummaryToValue(findPreference("cmd_audio_next"));
+            bindPreferenceSummaryToValue(findPreference("cmd_audio_volume_up"));
+            bindPreferenceSummaryToValue(findPreference("cmd_audio_volume_down"));
+            bindPreferenceSummaryToValue(findPreference("cmd_audio_rating"));
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
+                return true;
+            }
+
             return super.onOptionsItemSelected(item);
         }
     }

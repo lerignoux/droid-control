@@ -3,9 +3,9 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="cmd_power"
-        android:title="Power"
-        android:defaultValue="shutdown -h 0"
+        android:key="cmd_audio_play"
+        android:title="Play"
+        android:defaultValue="quodlibet --play"
         android:selectAllOnFocus="true"
         android:inputType="text"
         android:capitalize="none"
@@ -15,9 +15,9 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="script_0"
-        android:title="Custom script 0"
-        android:defaultValue=""
+        android:key="cmd_audio_pause"
+        android:title="Pause"
+        android:defaultValue="quodlibet --pause"
         android:selectAllOnFocus="true"
         android:inputType="text"
         android:capitalize="none"
@@ -27,9 +27,9 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="script_1"
-        android:title="Custom script 1"
-        android:defaultValue=""
+        android:key="cmd_audio_stop"
+        android:title="Stop"
+        android:defaultValue="quodlibet --stop"
         android:selectAllOnFocus="true"
         android:inputType="text"
         android:capitalize="none"
@@ -39,9 +39,9 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="script_2"
-        android:title="Custom script 2"
-        android:defaultValue=""
+        android:key="cmd_audio_next"
+        android:title="Next"
+        android:defaultValue="quodlibet --next"
         android:selectAllOnFocus="true"
         android:inputType="text"
         android:capitalize="none"
@@ -51,9 +51,9 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="script_3"
-        android:title="Custom script 3"
-        android:defaultValue=""
+        android:key="cmd_audio_rating"
+        android:title="Rating"
+        android:defaultValue="quodlibet --set-rating="
         android:selectAllOnFocus="true"
         android:inputType="text"
         android:capitalize="none"
@@ -63,9 +63,9 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="script_4"
-        android:title="Custom script 4"
-        android:defaultValue=""
+        android:key="cmd_audio_volume_down"
+        android:title="Volume down"
+        android:defaultValue="quodlibet --volume-down"
         android:selectAllOnFocus="true"
         android:inputType="text"
         android:capitalize="none"
@@ -75,61 +75,13 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="script_5"
-        android:title="Custom script 5"
-        android:defaultValue=""
+        android:key="cmd_audio_volume_up"
+        android:title="Volume up"
+        android:defaultValue="quodlibet --volume-up"
         android:selectAllOnFocus="true"
         android:inputType="text"
         android:capitalize="none"
         android:singleLine="true"
         android:maxLines="1" />
-
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-    <EditTextPreference
-        android:key="script_6"
-        android:title="Custom script 6"
-        android:defaultValue=""
-        android:selectAllOnFocus="true"
-        android:inputType="text"
-        android:capitalize="none"
-        android:singleLine="true"
-        android:maxLines="1" />
-
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-    <EditTextPreference
-        android:key="script_7"
-        android:title="Custom script 7"
-        android:defaultValue=""
-        android:selectAllOnFocus="true"
-        android:inputType="text"
-        android:capitalize="none"
-        android:singleLine="true"
-        android:maxLines="1" />
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-    <EditTextPreference
-        android:key="script_8"
-        android:title="Custom script 8"
-        android:defaultValue=""
-        android:selectAllOnFocus="true"
-        android:inputType="text"
-        android:capitalize="none"
-        android:singleLine="true"
-        android:maxLines="1" />
-
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-    <EditTextPreference
-        android:key="script_9"
-        android:title="Custom script 9"
-        android:defaultValue=""
-        android:selectAllOnFocus="true"
-        android:inputType="text"
-        android:capitalize="none"
-        android:singleLine="true"
-        android:maxLines="1" />
-
 
 </PreferenceScreen>

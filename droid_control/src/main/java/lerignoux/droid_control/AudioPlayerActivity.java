@@ -12,9 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RatingBar;
 
 import com.jcraft.jsch.Channel;
@@ -32,14 +32,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import lerignoux.droid_control.R;
-
-public class MainActivity extends AppCompatActivity {
+public class AudioPlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_audio_player);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         });
         File ssh_dir = getFilesDir();
         savePrivateKey(ssh_dir);
+        addListenerOnRatingBar();
     }
 
     @Override
@@ -77,6 +76,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void addListenerOnRatingBar() {
+
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+
+        //if rating value is changed,
+        //display the current rating value in the result (textview) automatically
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                rating = rating * 2 / 10;
+                String base = sharedPref.getString("cmd_audio_rating", "quodlibet --set-rating=");
+                Log.i("rating", String.valueOf(rating));
+                String script = base + String.valueOf(rating);
+                scriptExec(script);
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -92,15 +109,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
+        if (id == R.id.main_control) {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             return true;
         }
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.audio_control) {
-            Intent intent = new Intent(this, AudioPlayerActivity.class);
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
         }
@@ -131,23 +148,26 @@ public class MainActivity extends AppCompatActivity {
         String script;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         switch (view.getId()) {
-            case R.id.power:
-                script = sharedPref.getString("cmd_power", "");
+            case R.id.play:
+                script = sharedPref.getString("cmd_audio_play", "");
                 break;
-            case R.id.custom0:
-                script = sharedPref.getString("script_0", "");
+            case R.id.pause:
+                script = sharedPref.getString("cmd_audio_pause", "");
                 break;
-            case R.id.custom1:
-                script = sharedPref.getString("script_1", "");
+            case R.id.stop:
+                script = sharedPref.getString("cmd_audio_stop", "");
                 break;
-            case R.id.custom2:
-                script = sharedPref.getString("script_2", "");
+            case R.id.next:
+                script = sharedPref.getString("cmd_audio_next", "");
                 break;
-            case R.id.custom3:
-                script = sharedPref.getString("script_3", "");
+            case R.id.ratingBar:
+                script = sharedPref.getString("cmd_audio_rating", "");
                 break;
-            case R.id.custom4:
-                script = sharedPref.getString("script_4", "");
+            case R.id.volumeDown:
+                script = sharedPref.getString("cmd_audio_volume_down", "");
+                break;
+            case R.id.volumeUp:
+                script = sharedPref.getString("cmd_audio_volume_up", "");
                 break;
             default:
                 script = "";
