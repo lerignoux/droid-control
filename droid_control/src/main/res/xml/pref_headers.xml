@@ -3,13 +3,11 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header android:fragment="lerignoux.droid_control.SettingsActivity$GeneralPreferenceFragment"
-        android:title="@string/pref_header_general" android:icon="@drawable/ic_info_black_24dp" />
+        android:title="@string/pref_header_general" android:icon="@drawable/settings_main"
+        android:background="#000000"/>
 
-    <header android:fragment="lerignoux.droid_control.SettingsActivity$NotificationPreferenceFragment"
-        android:title="@string/pref_header_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp" />
-
-    <header android:fragment="lerignoux.droid_control.SettingsActivity$DataSyncPreferenceFragment"
-        android:title="@string/pref_header_data_sync" android:icon="@drawable/ic_sync_black_24dp" />
+    <header android:fragment="lerignoux.droid_control.SettingsActivity$ScriptsPreferenceFragment"
+        android:title="@string/pref_header_scripts"
+        android:icon="@drawable/settings_scripts" />
 
 </preference-headers>

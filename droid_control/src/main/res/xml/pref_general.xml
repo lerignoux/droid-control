@@ -5,7 +5,19 @@
     <EditTextPreference
         android:key="host"
         android:title="Host"
-        android:defaultValue="user@192.168.0.1"
+        android:defaultValue="192.168.0.1"
+        android:selectAllOnFocus="true"
+        android:inputType="text"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="username"
+        android:title="Username"
+        android:defaultValue="root"
         android:selectAllOnFocus="true"
         android:inputType="text"
         android:capitalize="none"
@@ -19,8 +31,7 @@
         android:title="Port"
         android:defaultValue="22"
         android:selectAllOnFocus="true"
-        android:inputType="text"
-        android:capitalize="words"
+        android:inputType="number"
         android:singleLine="true"
         android:maxLines="1" />
 
@@ -63,8 +74,8 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="private_key"
-        android:title="Private key name"
+        android:key="private_key_filename"
+        android:title="Private key filename"
         android:defaultValue="id_rsa"
         android:selectAllOnFocus="true"
         android:inputType="text"
@@ -75,7 +86,7 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="private_key_file"
+        android:key="private_key_content"
         android:title="Private key"
         android:defaultValue=""
         android:selectAllOnFocus="true"

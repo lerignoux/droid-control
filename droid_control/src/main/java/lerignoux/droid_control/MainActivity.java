@@ -3,7 +3,6 @@ package lerignoux.droid_control;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
@@ -59,13 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void addListenerOnRatingBar() {
 
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         //if rating value is changed,
         //display the current rating value in the result (textview) automatically
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                String script = "bash control/rating.sh " + String.valueOf(rating);
+                rating = rating * 2 / 10;
+                String base = sharedPref.getString("cmd_rating", "quodlibet --set-rating=");
+                Log.i("rating", String.valueOf(rating));
+                String script = base + String.valueOf(rating);
                 scriptExec(script);
             }
         });
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String host = sharedPref.getString("host", "192.168.0.1");
         String port = sharedPref.getString("port", "22");
-        Log.i("/lerx", "executing " + script + " on " + host);
+        Log.i("/lerx", "executing " + script + " on " + host + ":" + port);
         Executor task = new Executor(script, sharedPref);
         Thread t = new Thread(task);
         t.start();
@@ -129,6 +131,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ratingBar:
                 script = sharedPref.getString("cmd_rating", "");
                 break;
+            case R.id.volumeDown:
+                script = sharedPref.getString("cmd_volume_down", "");
+                break;
+            case R.id.volumeUp:
+                script = sharedPref.getString("cmd_volume_up", "");
+                break;
             case R.id.custom0:
                 script = sharedPref.getString("script_0", "");
                 break;
@@ -143,9 +151,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.custom4:
                 script = sharedPref.getString("script_4", "");
-                break;
-            case R.id.custom5:
-                script = sharedPref.getString("script_5", "");
                 break;
             default:
                 script = "";
@@ -174,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected Void savePrivateKey(File ssh_dir) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String filename = sharedPref.getString("private_key", "id_rsa");
+        String filename = sharedPref.getString("private_key_filename", "id_rsa");
         String private_key="";
         try {
             String abs_filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + filename;
@@ -203,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
         FileOutputStream outputStream;
         try {
-            outputStream = openFileOutput("id_rsa", Context.MODE_PRIVATE);
+            outputStream = openFileOutput(sharedPref.getString("private_key_filename", "id_rsa"), Context.MODE_PRIVATE);
             outputStream.write(private_key.getBytes());
             outputStream.close();
         } catch (Exception e) {
@@ -230,19 +235,18 @@ public class MainActivity extends AppCompatActivity {
                 JSch jsch = new JSch();
 
                 String host = sharedPref.getString("host", "localhost");
-                Integer port = 22;
-                String user = host.substring(0, host.indexOf('@'));
-                host = host.substring(host.indexOf('@') + 1);
-
+                Integer port = Integer.parseInt(sharedPref.getString("port", "22"));
+                String user = sharedPref.getString("username", "laurent");
                 Session session = jsch.getSession(user, host, port);
                 Log.d("/droid_control", "connection to: " + user + "@" + host + ":" + port);
                 // username and password will be given via UserInfo interface.
                 UserInfo ui = new MyUserInfo();
-                String ssh_dir = getFilesDir().getPath();
-                jsch.addIdentity(ssh_dir + "/id_rsa", passphrase);
+                File filesDir = getFilesDir();
+                String ssh_dir = filesDir.getPath();
+                Log.i("/droid_control", ssh_dir + "/" + sharedPref.getString("private_key_filename", "id_rsa"));
+                jsch.addIdentity(ssh_dir + "/" + sharedPref.getString("private_key_filename", "id_rsa"), passphrase);
                 // jsch.setKnownHosts(ssh_dir + "/known_hosts");
 
-                Log.i("/droid_control", ssh_dir + "/id_rsa");
                 session.setUserInfo(ui);
                 session.setConfig("StrictHostKeyChecking", "no");
                 session.connect();
@@ -277,7 +281,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     try {
                         Thread.sleep(1000);
-                    } catch (Exception ee) {
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
                 channel.disconnect();
