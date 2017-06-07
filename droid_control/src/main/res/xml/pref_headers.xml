@@ -4,7 +4,7 @@
 
     <header android:fragment="lerignoux.droid_control.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" android:icon="@drawable/settings_main"
-        android:background="#000000"/>
+        android:background="@color/colorBackground"/>
 
     <header android:fragment="lerignoux.droid_control.SettingsActivity$AudioPreferenceFragment"
         android:title="Audio"

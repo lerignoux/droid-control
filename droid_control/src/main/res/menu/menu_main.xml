@@ -1,12 +1,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="lerignoux.droid_control.MainActivity">
-    <item android:id="@+id/main_control" android:title="Main"
-        android:orderInCategory="100" app:showAsAction="never"/>
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never"/>
-    <item android:id="@+id/video_control" android:title="Video"
-    android:orderInCategory="100" app:showAsAction="never"/>
-    <item android:id="@+id/audio_control" android:title="Audio"
-        android:orderInCategory="100" app:showAsAction="never"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="lerignoux.droid_control.MainActivity">
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:textColor="@color/colorText"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/servers_settings"
+        android:title="@string/action_servers"
+        android:orderInCategory="100"
+        android:textColor="@color/colorText"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/main_control"
+        android:title="Main"
+        android:orderInCategory="100"
+        android:textColor="@color/colorText"
+        app:showAsAction="never"/>
+    <item android:id="@+id/video_control"
+        android:title="Video"
+        android:orderInCategory="100"
+        android:textColor="@color/colorText"
+        app:showAsAction="never"/>
+    <item android:id="@+id/audio_control"
+        android:title="Audio"
+        android:orderInCategory="100"
+        android:textColor="@color/colorText"
+        app:showAsAction="never"/>
 </menu>

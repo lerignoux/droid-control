@@ -7,8 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main" tools:context="lerignoux.droid_control.MainActivity"
-    android:background="#222222">
+    tools:showIn="@layout/activity_main" tools:context="lerignoux.droid_control.MainActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -29,7 +28,7 @@
             android:onClick="startScript"
             android:src="@drawable/power"
             android:scaleType="fitCenter"
-            android:background="#222222"
+            android:background="@color/colorBackground"
             android:clickable="true" />
 
         <Button
@@ -37,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="#222222"
+            android:background="@color/colorBackground"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
             android:nestedScrollingEnabled="true"
@@ -46,7 +45,7 @@
             android:singleLine="false"
             android:src="@drawable/script_1"
             android:text="Custom script 0"
-            android:textColor="#999999" />
+            android:textColor="@color/colorText" />
 
         <Button
             android:layout_width="wrap_content"
@@ -56,13 +55,13 @@
             android:layout_gravity="center_horizontal"
             android:onClick="startScript"
             android:nestedScrollingEnabled="true"
-            android:background="#222222"
+            android:background="@color/colorBackground"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
             android:src="@drawable/script_2"
             android:padding="10dp"
             android:singleLine="false"
-            android:textColor="#999999" />
+            android:textColor="@color/colorText" />
 
         <Button
             android:layout_width="wrap_content"
@@ -72,13 +71,13 @@
             android:layout_gravity="center_horizontal"
             android:onClick="startScript"
             android:nestedScrollingEnabled="true"
-            android:background="#222222"
+            android:background="@color/colorBackground"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
             android:src="@drawable/script_3"
             android:padding="10dp"
             android:singleLine="false"
-            android:textColor="#999999" />
+            android:textColor="@color/colorText" />
 
         <Button
             android:layout_width="wrap_content"
@@ -88,13 +87,13 @@
             android:layout_gravity="center_horizontal"
             android:onClick="startScript"
             android:nestedScrollingEnabled="true"
-            android:background="#222222"
+            android:background="@color/colorBackground"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
             android:src="@drawable/script_4"
             android:padding="10dp"
             android:singleLine="false"
-            android:textColor="#999999" />
+            android:textColor="@color/colorText" />
 
         <Button
             android:layout_width="wrap_content"
@@ -104,13 +103,13 @@
             android:layout_gravity="center_horizontal"
             android:onClick="startScript"
             android:nestedScrollingEnabled="true"
-            android:background="#222222"
+            android:background="@color/colorBackground"
             android:backgroundTint="#222"
             android:backgroundTintMode="add"
             android:src="@drawable/script_5"
             android:padding="10dp"
             android:singleLine="false"
-            android:textColor="#999999" />
+            android:textColor="@color/colorText" />
 
     </LinearLayout>
 </RelativeLayout>
