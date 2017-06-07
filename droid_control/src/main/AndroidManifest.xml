@@ -25,21 +25,17 @@
             android:name="lerignoux.droid_control.AudioPlayerActivity"
             android:label="Audio control"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lerignoux.droid_control.MainActivity" />
         </activity>
         <activity
             android:name="lerignoux.droid_control.VideoPlayerActivity"
             android:label="Video control"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lerignoux.droid_control.MainActivity" />
         </activity>
         <activity
             android:name="lerignoux.droid_control.RunScriptActivity"
@@ -51,8 +47,20 @@
                 android:value="lerignoux.droid_control.MainActivity" />
         </activity>
         <activity
+            android:name="lerignoux.droid_control.ServersSettingsActivity"
+            android:label="@string/title_activity_settings_servers"
+            android:parentActivityName="lerignoux.droid_control.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lerignoux.droid_control.MainActivity" />
+        </activity>
+        <activity
             android:name="lerignoux.droid_control.SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="lerignoux.droid_control.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lerignoux.droid_control.MainActivity" />
         </activity>
     </application>
 

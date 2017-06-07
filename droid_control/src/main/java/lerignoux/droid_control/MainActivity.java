@@ -99,6 +99,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.servers_settings) {
+            Intent intent = new Intent(this, ServersSettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        //noinspection SimplifiableIfStatement
         if (id == R.id.audio_control) {
             Intent intent = new Intent(this, AudioPlayerActivity.class);
             startActivity(intent);
@@ -114,8 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     protected void scriptExec(String script) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        Log.v("DEBUG", sharedPref.getString("private_key_file", "not found"));
         String host = sharedPref.getString("host", "192.168.0.1");
         String port = sharedPref.getString("port", "22");
         Log.i("/lerx", "executing " + script + " on " + host + ":" + port);
@@ -240,8 +250,8 @@ public class MainActivity extends AppCompatActivity {
                 UserInfo ui = new MyUserInfo();
                 File filesDir = getFilesDir();
                 String ssh_dir = filesDir.getPath();
-                Log.i("/droid_control", ssh_dir + "/" + sharedPref.getString("private_key_filename", "id_rsa"));
-                jsch.addIdentity(ssh_dir + "/" + sharedPref.getString("private_key_filename", "id_rsa"), passphrase);
+                Log.i("/droid_control", sharedPref.getString("private_key_file", "id_rsa"));
+                jsch.addIdentity(sharedPref.getString("private_key_file", "id_rsa"), passphrase);
                 // jsch.setKnownHosts(ssh_dir + "/known_hosts");
 
                 session.setUserInfo(ui);
