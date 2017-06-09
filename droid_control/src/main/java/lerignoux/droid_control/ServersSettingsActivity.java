@@ -20,6 +20,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -108,6 +110,7 @@ public class ServersSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_servers_settings);
         setupActionBar();
         setupPrivateKeyFinder();
+        setupPassphrase();
         setupServerList();
         setupAddServerFab();
     }
@@ -143,6 +146,21 @@ public class ServersSettingsActivity extends AppCompatActivity {
                 intent = Intent.createChooser(chooseFile, "Load private key");
                 startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
             }
+        });
+    }
+
+    public void setupPassphrase() {
+        final SharedPreferences srvPref = getSharedPreferences(SRVPrefKey, MODE_PRIVATE);
+        final EditText passphraseInput = (EditText) findViewById(R.id.privKeyPassphrase);
+        passphraseInput.setText(srvPref.getString("PrivateKeyPassphrase", "No passphrase"));
+        passphraseInput.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                // We save the passphrase
+                srvPref.edit().putString("PrivateKeyPassphrase", passphraseInput.getText().toString()).commit();
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
         });
     }
 
