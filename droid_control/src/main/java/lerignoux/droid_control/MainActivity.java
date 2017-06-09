@@ -1,28 +1,20 @@
 package lerignoux.droid_control;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -53,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setupActionBar();
+        setupTabSwitch();
         loadServerList();
 
         File ssh_dir = getFilesDir();
@@ -63,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences servPref = getSharedPreferences(ServersSettingsActivity.SRVPrefKey, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = servPref.getString("ServerList", "[]");
-        Log.v("DEBUG", "Server list found: " + json);
+        Log.v("DEBUG", "Server list found: " + json) ;
         serverList = (ArrayList<Server>) gson.fromJson(json, new TypeToken<ArrayList<Server>>() {}.getType());
         Log.v("DEBUG", json);
     }
@@ -112,6 +105,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectServer(Server server) {
 
+    }
+
+    private void setupTabSwitch() {
+        ViewPager tabPager = (ViewPager) findViewById(R.id.tab_pager);
+        tabPager.setAdapter(new TabPageAdapter());
+        SlidingTabLayout slidingLayout = (SlidingTabLayout) findViewById(R.id.tab_layout);
+        slidingLayout.setViewPager(tabPager);
     }
 
     @Override
