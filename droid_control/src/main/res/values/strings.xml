@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Droid control</string>
+    <string name="menu_server">Server list</string>
+    <string name="drawer_open">changer server</string>
+    <string name="drawer_close">annuler</string>
+
     <string name="action_settings">Settings</string>
     <string name="action_servers">Servers</string>
+    <string name="title_activity_server_list">Server List</string>
     <string name="title_activity_settings_servers">Server settings</string>
     <string name="title_activity_run_script">RunScriptActivity</string>
     <string name="title_activity_settings">Settings</string>

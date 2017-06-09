@@ -2,7 +2,9 @@ package lerignoux.droid_control;
 
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -14,15 +16,26 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -36,7 +49,58 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class ServersSettingsActivity extends AppCompatActivity {
+    public static final String SRVPrefKey = "ServerPreferences" ;
     final int ACTIVITY_CHOOSE_FILE = 1;
+    final Context context = this;
+    private ServersAdapter serverListAdapter;
+    private ListView serverListView;
+    private ArrayList<Server> serverList = new ArrayList<Server>();
+
+
+    public class ServersAdapter extends ArrayAdapter<Server> {
+        ServersAdapter(Context context, ArrayList<Server> servers) {
+            super(context, 0, servers);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            Server server = getItem(position);
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.server_list_item, parent, false);
+            }
+            // Lookup view for data population
+            TextView name = (TextView) convertView.findViewById(R.id.srv_name);
+            TextView address = (TextView) convertView.findViewById(R.id.srv_address);
+            TextView port = (TextView) convertView.findViewById(R.id.srv_port);
+            TextView username = (TextView) convertView.findViewById(R.id.srv_username);
+            // Populate the data into the template view using the data object
+            name.setText(server.name);
+            address.setText(server.address);
+            port.setText(String.valueOf(server.port));
+            username.setText(String.valueOf(server.username));
+            // Return the completed view to render on screen
+
+            ImageButton deleteButton = (ImageButton) convertView.findViewById(R.id.srv_delete);
+            deleteButton.setTag(position);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = (Integer) view.getTag();
+                    // Access the row position here to get the correct data item
+                    Server server = getItem(position);
+                    serverList.remove(position);
+                    serverListAdapter.remove(server);
+                    saveServerList();
+                    // Do what you want here...
+                }
+            });
+
+            return convertView;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +108,8 @@ public class ServersSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_servers_settings);
         setupActionBar();
         setupPrivateKeyFinder();
+        setupServerList();
+        setupAddServerFab();
     }
 
     /**
@@ -62,6 +128,10 @@ public class ServersSettingsActivity extends AppCompatActivity {
      */
     private void setupPrivateKeyFinder() {
 
+        TextView pkview = (TextView) this.findViewById(R.id.privateKeyName);
+        SharedPreferences srvPref = getSharedPreferences(SRVPrefKey, MODE_PRIVATE);
+        pkview.setText(srvPref.getString("private_key_file", "No private key set"));
+
         Button btn = (Button) this.findViewById(R.id.FindPrivKeyBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +146,104 @@ public class ServersSettingsActivity extends AppCompatActivity {
         });
     }
 
+    public void setupServerList() {
+        // Create the adapter to convert the array to views
+        serverListAdapter = new ServersAdapter(this, serverList);
+        // Attach the adapter to a ListView
+        serverListView = (ListView) findViewById(R.id.ServerList);
+        serverListView.setAdapter(serverListAdapter);
+        loadServerList();
+        serverListAdapter.addAll(serverList);
+    }
+
+    public void setupAddServerFab() {
+        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.addServerButton);
+
+        // add button listener
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                // get prompts.xml view
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.popup_add_server, null);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                // set prompts.xml to alertdialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                final EditText serverNameInput = (EditText) promptsView
+                        .findViewById(R.id.addServerName);
+                final EditText serverAddressInput = (EditText) promptsView
+                        .findViewById(R.id.addServerAddress);
+                final EditText serverPortInput = (EditText) promptsView
+                        .findViewById(R.id.addServerPort);
+                final EditText serverUsernameInput = (EditText) promptsView
+                        .findViewById(R.id.addServerUsername);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("Add",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // get user input and set it to result
+                                    // edit text
+                                    serverList.add(new Server(
+                                            serverNameInput.getText().toString(),
+                                            serverAddressInput.getText().toString(),
+                                            Integer.parseInt(serverPortInput.getText().toString()),
+                                            serverUsernameInput.getText().toString())
+                                    );
+                                    serverListAdapter.add(new Server(
+                                            serverNameInput.getText().toString(),
+                                            serverAddressInput.getText().toString(),
+                                            Integer.parseInt(serverPortInput.getText().toString()),
+                                            serverUsernameInput.getText().toString())
+                                    );
+                                    saveServerList();
+                                    loadServerList();
+                                }
+                        })
+                        .setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
+            }
+        });
+    }
+
+    private void loadServerList() {
+        SharedPreferences mPrefs = getSharedPreferences(SRVPrefKey, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("ServerList", "[]");
+        Log.v("DEBUG", "Server list: " + json);
+        serverList = (ArrayList<Server>) gson.fromJson(json, new TypeToken<ArrayList<Server>>() {}.getType());
+    }
+
+    private void saveServerList() {
+        SharedPreferences sharedPref = getSharedPreferences(SRVPrefKey, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String serverListString = gson.toJson(serverList);
+        Log.v("DEBUG", "Saved server list: " + serverListString);
+        sharedPref.edit().putString("ServerList", serverListString).commit();
+
+        String json = sharedPref.getString("ServerList", "[]");
+        Log.v("DEBUG", "Read server list: " + json);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -83,10 +251,13 @@ public class ServersSettingsActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     String filePath = uri.getPath();
-                    SharedPreferences pref = this.getSharedPreferences(
-                            "lerignoux.droid_control", Context.MODE_PRIVATE);
-                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-                    sharedPref.edit().putString("private_key_file", filePath).apply();
+
+                    SharedPreferences srvPref = getSharedPreferences(SRVPrefKey, MODE_PRIVATE);
+                    srvPref.edit().putString("private_key_file", filePath).apply();
+
+                    // We update the key name
+                    TextView pkview = (TextView) this.findViewById(R.id.privateKeyName);
+                    pkview.setText(srvPref.getString("private_key_file", "No private key set"));
                 }
             }
         }
