@@ -30,7 +30,7 @@
                 android:value="lerignoux.droid_control.MainActivity" />
         </activity>
         <activity
-            android:name="lerignoux.droid_control.VideoPlayerActivity"
+            android:name="lerignoux.droid_control.VideoPlayerFragment"
             android:label="Video control"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data

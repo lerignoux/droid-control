@@ -1,32 +1,63 @@
 package lerignoux.droid_control;
 
-import android.support.v4.view.PagerAdapter;
-import android.view.View;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 /**
  * Created by laurent on 6/9/17.
  */
 
-public class TabPageAdapter extends PagerAdapter {
+public class TabPageAdapter extends FragmentStatePagerAdapter {
 
-    @Override
-    public int getCount() {
-        return 3;
+    CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
+    int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
+
+
+    // Build a Constructor and assign the passed Values to appropriate values in the class
+    public TabPageAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {
+        super(fm);
+
+        this.Titles = mTitles;
+        this.NumbOfTabs = mNumbOfTabsumb;
+
     }
 
+    //This method return the fragment for the every position in the View Pager
     @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return false;
+    public Fragment getItem(int position) {
+
+        if(position == 0) // if the position is 0 we are returning the First tab
+        {
+            MachineFragment machineFragment = new MachineFragment();
+            return machineFragment;
+        }
+        if(position == 1) // if the position is 0 we are returning the First tab
+        {
+            AudioPlayerFragment audioFragment = new AudioPlayerFragment();
+            return audioFragment;
+        }
+        else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
+        {
+            VideoPlayerFragment videoFragment = new VideoPlayerFragment();
+            return videoFragment;
+        }
+
+
     }
+
+    // This method return the titles for the Tabs in the Tab Strip
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if (position == 1) {
-            return "Audio";
-        }
-        if (position == 2) {
-            return "Video";
-        }
-        return "Main";
+        return Titles[position];
+    }
+
+    // This method return the Number of tabs for the tabs Strip
+
+    @Override
+    public int getCount() {
+        return NumbOfTabs;
     }
 }

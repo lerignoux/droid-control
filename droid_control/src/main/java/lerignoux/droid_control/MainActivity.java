@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RatingBar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,17 +40,24 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Server> serverList = new ArrayList<Server>();
     private Integer currentServer;
 
+    Toolbar toolbar;
+
+    ViewPager pager;
+    TabPageAdapter adapter;
+    SlidingTabLayout tabs;
+    CharSequence Titles[]={"Machine", "Audio","Video"};
+    int Numboftabs = 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setupActionBar();
-        setupTabSwitch();
         loadServerList();
 
         File ssh_dir = getFilesDir();
-        savePrivateKey(ssh_dir);
+
     }
 
     private void loadServerList() {
@@ -57,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = servPref.getString("ServerList", "[]");
         Log.v("DEBUG", "Server list found: " + json) ;
-        serverList = (ArrayList<Server>) gson.fromJson(json, new TypeToken<ArrayList<Server>>() {}.getType());
-        Log.v("DEBUG", json);
+        serverList = gson.fromJson(json, new TypeToken<ArrayList<Server>>() {}.getType());
     }
 
     private void nextServer() {
@@ -101,18 +108,38 @@ public class MainActivity extends AppCompatActivity {
         } else {
             toolbar.setTitle("No server defined");
         }
+        setPaging();
+    }
+
+    private void setPaging() {
+        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        adapter =  new TabPageAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+
+        // Assigning ViewPager View and setting the adapter
+        pager = (ViewPager) findViewById(R.id.tab_pager);
+        pager.setAdapter(adapter);
+
+        // Assiging the Sliding Tab Layout View
+        tabs = (SlidingTabLayout) findViewById(R.id.tab_layout);
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.colorPrimary);
+            }
+        });
+
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(pager);
+
     }
 
     private void selectServer(Server server) {
 
     }
 
-    private void setupTabSwitch() {
-        ViewPager tabPager = (ViewPager) findViewById(R.id.tab_pager);
-        tabPager.setAdapter(new TabPageAdapter());
-        SlidingTabLayout slidingLayout = (SlidingTabLayout) findViewById(R.id.tab_layout);
-        slidingLayout.setViewPager(tabPager);
-    }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
@@ -164,36 +191,25 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.audio_control) {
-            Intent intent = new Intent(this, AudioPlayerActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.video_control) {
-            Intent intent = new Intent(this, VideoPlayerActivity.class);
-            startActivity(intent);
-            return true;
-        }
+        Log.v("ItemSelect", String.valueOf(id));
 
         return super.onOptionsItemSelected(item);
     }
 
     protected void scriptExec(String script) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-        Log.v("DEBUG", sharedPref.getString("private_key_file", "not found"));
+        SharedPreferences srvPref = getSharedPreferences(ServersSettingsActivity.SRVPrefKey, MODE_PRIVATE);
+        Log.v("DEBUG", srvPref.getString("private_key_file", "Private key not found"));
         String host = getCurrentServer().address;
         Integer port = getCurrentServer().port;
-        Log.i("/lerx", "executing " + script + " on " + host + ":" + String.valueOf(port));
-        Executor task = new Executor(script, sharedPref);
+        Log.i("/DEBUG", "executing " + script + " on " + host + ":" + String.valueOf(port));
+        Executor task = new Executor(script, sharedPref, srvPref);
         Thread t = new Thread(task);
         t.start();
 
         //ConnectionTask().execute(script, host, port);
     }
+
 
     public void startScript(View view) {
         // Handle user click
@@ -218,6 +234,52 @@ public class MainActivity extends AppCompatActivity {
             case R.id.custom4:
                 script = sharedPref.getString("script_4", "");
                 break;
+
+            case R.id.audio_play:
+                script = sharedPref.getString("cmd_audio_play", "");
+                break;
+            case R.id.audio_pause:
+                script = sharedPref.getString("cmd_audio_pause", "");
+                break;
+            case R.id.audio_stop:
+                script = sharedPref.getString("cmd_audio_stop", "");
+                break;
+            case R.id.audio_next:
+                script = sharedPref.getString("cmd_audio_next", "");
+                break;
+            case R.id.audio_ratingBar:
+                script = sharedPref.getString("cmd_audio_rating", "");
+                break;
+            case R.id.audio_volumeDown:
+                script = sharedPref.getString("cmd_audio_volume_down", "");
+                break;
+            case R.id.audio_volumeUp:
+                script = sharedPref.getString("cmd_audio_volume_up", "");
+                break;
+
+            case R.id.video_play:
+                script = sharedPref.getString("cmd_video_play", "");
+                break;
+            case R.id.video_pause:
+                script = sharedPref.getString("cmd_video_pause", "");
+                break;
+            case R.id.video_stop:
+                script = sharedPref.getString("cmd_video_stop", "");
+                break;
+            case R.id.video_next:
+                script = sharedPref.getString("cmd_video_next", "");
+                break;
+            case R.id.video_fullscreen:
+                script = sharedPref.getString("cmd_video_fullscreen", "");
+                break;
+            case R.id.video_volumeDown:
+                script = sharedPref.getString("cmd_video_volume_down", "");
+                break;
+            case R.id.video_volumeUp:
+                script = sharedPref.getString("cmd_video_volume_up", "");
+                break;
+
+
             default:
                 script = "";
         }
@@ -245,11 +307,13 @@ public class MainActivity extends AppCompatActivity {
 
     protected Void savePrivateKey(File ssh_dir) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String filename = sharedPref.getString("private_key_filename", "id_rsa");
+        SharedPreferences srvPref = getSharedPreferences(ServersSettingsActivity.SRVPrefKey, MODE_PRIVATE);
+
+        String filename = srvPref.getString("private_key_file", "~/id_rsa");
         String private_key="";
         try {
-            String abs_filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + filename;
-            FileInputStream inputStream = new FileInputStream(new File(abs_filename));
+            //String abs_filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + filename;
+            FileInputStream inputStream = new FileInputStream(new File(filename));
 
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -267,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         catch (FileNotFoundException e) {
+            Log.v("Config", "Private key not found, reselect required");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -274,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
 
         FileOutputStream outputStream;
         try {
-            outputStream = openFileOutput(sharedPref.getString("private_key_filename", "id_rsa"), Context.MODE_PRIVATE);
+            outputStream = openFileOutput(srvPref.getString("private_key_file", "id_rsa"), Context.MODE_PRIVATE);
             outputStream.write(private_key.getBytes());
             outputStream.close();
         } catch (Exception e) {
@@ -287,30 +352,28 @@ public class MainActivity extends AppCompatActivity {
 
         private String script;
         private SharedPreferences sharedPref;
+        private SharedPreferences srvPref;
 
-        public Executor(String script, SharedPreferences sharedPref) {
+        public Executor(String script, SharedPreferences sharedPref, SharedPreferences srvPref) {
             this.sharedPref = sharedPref;
+            this.srvPref = srvPref;
             this.script = script;
         }
 
         @Override
         public void run() {
             try {
-                String passphrase = sharedPref.getString("passphrase", "");
-
                 JSch jsch = new JSch();
 
-                String host = sharedPref.getString("host", "localhost");
-                Integer port = Integer.parseInt(sharedPref.getString("port", "22"));
-                String user = sharedPref.getString("username", "laurent");
-                Session session = jsch.getSession(user, host, port);
-                Log.d("/droid_control", "connection to: " + user + "@" + host + ":" + port);
+                Server current = getCurrentServer();
+                Session session = jsch.getSession(current.username, current.address, current.port);
+                Log.d("/droid_control", "connection to: " + current.username + "@" + current.address + ":" + String.valueOf(current.port));
                 // username and password will be given via UserInfo interface.
                 UserInfo ui = new MyUserInfo();
                 File filesDir = getFilesDir();
                 String ssh_dir = filesDir.getPath();
-                Log.i("/droid_control", sharedPref.getString("private_key_file", "id_rsa"));
-                jsch.addIdentity(sharedPref.getString("private_key_file", "id_rsa"), passphrase);
+                Log.i("/droid_control", srvPref.getString("private_key_file", "~/id_rsa"));
+                jsch.addIdentity(srvPref.getString("private_key_file", "id_rsa"), srvPref.getString("PrivateKeyPassphrase", ""));
                 // jsch.setKnownHosts(ssh_dir + "/known_hosts");
 
                 session.setUserInfo(ui);

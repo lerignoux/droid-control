@@ -248,7 +248,7 @@ public class ServersSettingsActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = mPrefs.getString("ServerList", "[]");
         Log.v("DEBUG", "Server list: " + json);
-        serverList = (ArrayList<Server>) gson.fromJson(json, new TypeToken<ArrayList<Server>>() {}.getType());
+        serverList = gson.fromJson(json, new TypeToken<ArrayList<Server>>() {}.getType());
     }
 
     private void saveServerList() {
