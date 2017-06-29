@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -127,6 +129,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * @see #sBindPreferenceSummaryToValueListener
      */
     private static void bindPreferenceSummaryToValue(Preference preference) {
+
+        if (preference instanceof SwitchPreference) {
+            // Cannot set value on Switch boolean preference
+            return;
+        }
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
@@ -166,14 +173,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("host"));
-            bindPreferenceSummaryToValue(findPreference("username"));
-            bindPreferenceSummaryToValue(findPreference("port"));
-            bindPreferenceSummaryToValue(findPreference("password"));
-            bindPreferenceSummaryToValue(findPreference("passphrase"));
-            bindPreferenceSummaryToValue(findPreference("auth_list"));
-            bindPreferenceSummaryToValue(findPreference("private_key_filename"));
-            bindPreferenceSummaryToValue(findPreference("private_key_content"));
+            bindPreferenceSummaryToValue(findPreference("wifi_only"));
         }
 
         @Override
