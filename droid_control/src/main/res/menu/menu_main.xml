@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="lerignoux.droid_control.MainActivity">
 
+    <item android:id="@+id/next_server"
+        android:icon="@drawable/forward"
+        android:title="next_server"
+        android:orderInCategory="100"
+        android:textColor="@color/colorText"
+        app:showAsAction="always"/>
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
@@ -15,19 +22,4 @@
         android:textColor="@color/colorText"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/main_control"
-        android:title="Main"
-        android:orderInCategory="100"
-        android:textColor="@color/colorText"
-        app:showAsAction="never"/>
-    <item android:id="@+id/video_control"
-        android:title="Video"
-        android:orderInCategory="100"
-        android:textColor="@color/colorText"
-        app:showAsAction="never"/>
-    <item android:id="@+id/audio_control"
-        android:title="Audio"
-        android:orderInCategory="100"
-        android:textColor="@color/colorText"
-        app:showAsAction="never"/>
 </menu>

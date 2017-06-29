@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
@@ -15,7 +14,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,11 +35,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    final Context context = this;
     private ArrayList<Server> serverList = new ArrayList<Server>();
     private Integer currentServer;
-
-    Toolbar toolbar;
 
     ViewPager pager;
     TabPageAdapter adapter;
@@ -53,10 +49,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupActionBar();
         loadServerList();
+        setupActionBar();
+    }
 
-        File ssh_dir = getFilesDir();
+    protected void onStart() {
+        super.onStart();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
     }
 
@@ -75,9 +74,22 @@ public class MainActivity extends AppCompatActivity {
         }
         SharedPreferences servPref = getSharedPreferences(ServersSettingsActivity.SRVPrefKey, MODE_PRIVATE);
         servPref.edit().putString("current_server", currentServer.toString()).apply();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (serverList.size() > 0) {
-            toolbar.setTitle(serverList.get(currentServer).name);
+            TextView serverTitle = (TextView) findViewById(R.id.server_title);
+            serverTitle.setText(serverList.get(currentServer).name);
+        }
+    }
+
+    private void previousServer() {
+        currentServer -= 1;
+        if (currentServer < 0) {
+            currentServer = serverList.size() - 1;
+        }
+        SharedPreferences servPref = getSharedPreferences(ServersSettingsActivity.SRVPrefKey, MODE_PRIVATE);
+        servPref.edit().putString("current_server", currentServer.toString()).apply();
+        if (serverList.size() > 0) {
+            TextView serverTitle = (TextView) findViewById(R.id.server_title);
+            serverTitle.setText(serverList.get(currentServer).name);
         }
     }
 
@@ -92,22 +104,23 @@ public class MainActivity extends AppCompatActivity {
     private void setupActionBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_switch_server);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.backward);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                nextServer();
+                previousServer();
             }
         });
 
-        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
-        currentServer = Integer.parseInt(sharedPref.getString("current_server", "0"));
+        SharedPreferences servPref = getSharedPreferences(ServersSettingsActivity.SRVPrefKey, MODE_PRIVATE);
+        currentServer = Integer.parseInt(servPref.getString("current_server", "0"));
         if (serverList.size() > 0) {
-            toolbar.setTitle(serverList.get(currentServer).name);
-        } else {
-            toolbar.setTitle("No server defined");
+            TextView serverTitle = (TextView) findViewById(R.id.server_title);
+            serverTitle.setText(serverList.get(currentServer).name);
         }
+
         setPaging();
     }
 
@@ -135,11 +148,6 @@ public class MainActivity extends AppCompatActivity {
         tabs.setViewPager(pager);
 
     }
-
-    private void selectServer(Server server) {
-
-    }
-
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
@@ -188,6 +196,12 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.servers_settings) {
             Intent intent = new Intent(this, ServersSettingsActivity.class);
             startActivity(intent);
+            return true;
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.next_server) {
+            nextServer();
             return true;
         }
 

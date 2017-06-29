@@ -38,15 +38,6 @@
                 android:value="lerignoux.droid_control.MainActivity" />
         </activity>
         <activity
-            android:name="lerignoux.droid_control.RunScriptActivity"
-            android:label="@string/title_activity_run_script"
-            android:parentActivityName="lerignoux.droid_control.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="lerignoux.droid_control.MainActivity" />
-        </activity>
-        <activity
             android:name="lerignoux.droid_control.ServersSettingsActivity"
             android:label="@string/title_activity_settings_servers"
             android:parentActivityName="lerignoux.droid_control.MainActivity" >
