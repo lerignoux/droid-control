@@ -73,49 +73,50 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
 
         <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="0dp"
-            android:padding="0dp"
-            android:text="fullscreen"
             android:id="@+id/video_fullscreen"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="0dp"
+            android:background="@color/colorBackground"
             android:nestedScrollingEnabled="false"
             android:onClick="startScript"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/fullscreen"
-            android:scaleType="fitCenter"
-            android:background="@color/colorBackground" />
+            android:text="fullscreen" />
 
         <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="0dp"
-            android:padding="0dp"
-            android:text="next"
             android:id="@+id/video_volumeDown"
-            android:nestedScrollingEnabled="false"
-            android:onClick="startScript"
-            android:src="@drawable/volume_down"
-            android:scaleType="fitCenter"
-            android:background="@color/colorBackground" />
-
-        <ImageButton
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="0dp"
-            android:padding="0dp"
-            android:text="next"
-            android:id="@+id/video_volumeUp"
+            android:background="@color/colorBackground"
             android:nestedScrollingEnabled="false"
             android:onClick="startScript"
-            android:src="@drawable/volume_up"
+            android:padding="0dp"
             android:scaleType="fitCenter"
-            android:background="@color/colorBackground" />
+            android:src="@drawable/volume_down"
+            android:text="next" />
+
+        <ImageButton
+            android:id="@+id/video_volumeUp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="0dp"
+            android:background="@color/colorBackground"
+            android:nestedScrollingEnabled="false"
+            android:onClick="startScript"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/volume_up"
+            android:text="next" />
 
     </LinearLayout>
 </LinearLayout>
