@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             case KeyEvent.KEYCODE_VOLUME_UP:
                 if (action == KeyEvent.ACTION_DOWN) {
                     // Increase volume: amixer -q -D pulse sset Master 10%+
-                    scriptExec("amixer -q -D pulse sset Master 5%+&");
+                    scriptExec("amixer -q -D pulse sset Master 5%+");
                 }
                 return true;
             case KeyEvent.KEYCODE_VOLUME_DOWN:
