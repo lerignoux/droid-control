@@ -16,7 +16,7 @@ private key must be located in the android device using the load button in the s
 
 ## Library
 The [jsch](http://www.jcraft.com/jsch/) java library is used for the ssh connection to the remote host.
-current jsch version is 0.1.53
+current jsch version is 0.1.54
 
 
 # scripts
