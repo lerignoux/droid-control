@@ -269,6 +269,7 @@ public class ServersSettingsActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     String filePath = uri.getPath();
+                    filePath = filePath.replace("/external_files/", "/");
 
                     SharedPreferences srvPref = getSharedPreferences(SRVPrefKey, MODE_PRIVATE);
                     srvPref.edit().putString("private_key_file", filePath).apply();
