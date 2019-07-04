@@ -97,7 +97,9 @@ public class MainActivity extends AppCompatActivity {
         if (serverList.size() > 0) {
             return serverList.get(currentServer);
         } else {
-            return null;
+            View pagerView = findViewById(R.id.tab_pager);
+            Snackbar.make(pagerView, "No server defined please add at least one.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         }
     }
 
